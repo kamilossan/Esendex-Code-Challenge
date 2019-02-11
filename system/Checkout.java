@@ -1,6 +1,7 @@
 package system;
 
 import java.math.BigDecimal;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 //checkout handling class, functions overloaded to accept both entire item objects or item ID's as parameters
@@ -87,14 +88,31 @@ public class Checkout {
 	public static void main(String args[]) {
 		Checkout checkout = new Checkout(new ThisWeekPricing());
 		checkout.pricingRules.uploadCurrentDatabase(new ItemBase());
-		checkout.scan('D');
-		checkout.scan('A');
-		checkout.scan('B');
-		checkout.scan('A');
-		checkout.scan('B');
-		checkout.scan('A');
+		Scanner sc = new Scanner(System.in);
+		String temp;
+		char input;
+		while(true){
+			temp = "";
+			System.out.println("Put letter of the item to add it to basket and press enter, or press enter to check out\n");
+			temp = sc.nextLine();
+			if(temp.length()==1){
+			
+			input = temp.toCharArray()[0];
+			input = Character.toUpperCase(input);
+			System.out.println("Adding "+input+" to the basket!");
+			checkout.scan(input);
+			}else if(temp.isEmpty()){
+				break;
+			}
+			else{
+				System.out.println("Wrong input, try again!\n");
+			}
+		}
+		sc.close();
 
-		System.out.println(checkout.total);
+
+
+		System.out.println("Total to pay: "+checkout.total);
 
 	}
 }
