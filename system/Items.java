@@ -9,12 +9,24 @@ public class Items {
 Items(){
 	
 }
-protected TreeMap<Character, Item> items = new TreeMap<Character, Item>();
+Items(Item[] items){
+	addToBase(items);
+}
+private TreeMap<Character, Item> items = new TreeMap<Character, Item>();
 
 void addItem(Item item){
-	items.put(item.ID, item);
+	items.put(item.getID(), item);
 }
 void removeItem(char key){
 	items.remove(key);
+}
+//actual function to read items from database should there be one
+public void addToBase(Item[] items){
+	for(Item item:items){
+		addItem(item);
+	}
+}
+TreeMap<Character,Item> getItems(){
+	return items;
 }
 }
